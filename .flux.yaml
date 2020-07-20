@@ -1,5 +1,7 @@
 version: 1
 patchUpdated:
   generators:
+  - command: sops --decrypt --output html.secret.yaml html.secret.enc.yaml
   - command: kustomize build .
+  - command: rm html.secret.yaml
   patchFile: flux-patch.yaml
