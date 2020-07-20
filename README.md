@@ -18,20 +18,22 @@ You can reference generating a key and importing a key to Flux container from [g
 
 You also are able to generate gpg key without prompt.
 
-```txt:gpg-opts.txt
-%echo Generating a basic OpenPGP key
-Key-Type: RSA
-Key-Length: 4096
-Subkey-Type: RSA
-Subkey-Length: 4096
-Name-Real: Takeshi Takizawa
-Name-Comment: Some comments
-Name-Email: xxx@example.com
-Expire-Date: 0
-# Do a commit here, so that we can later print "done" :-)
-%no-protection
-%commit
-%echo done
+```sh
+cat >gpg-opts.txt <<EOF
+    %echo Generating a basic OpenPGP key
+    Key-Type: RSA
+    Key-Length: 4096
+    Subkey-Type: RSA
+    Subkey-Length: 4096
+    Name-Real: Takeshi Takizawa
+    Name-Comment: Some comments
+    Name-Email: xxx@example.com
+    Expire-Date: 0
+    # Do a commit here, so that we can later print "done" :-)
+    %no-protection
+    %commit
+    %echo done
+EOF
 ```
 
 ```sh
@@ -51,7 +53,7 @@ https://github.com/mozilla/sops#usage
 
 Before kubectl apply you need to decrypt file. So let's create `.flux.yaml` file to manage manifest generation steps.
 
-```yaml:.flux.yaml
+```yaml
 version: 1
 patchUpdated:
   generators:
